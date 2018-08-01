@@ -1,0 +1,35 @@
+//////////////////////////////////////////////////////////
+//  SETTINGS > Global
+//////////////////////////////////////////////////////////
+
+// GLOBAL STYLES
+// ---------------
+$app-background-gradient: linear-gradient(135deg, #16336e 0%, #632882 100%) no-repeat fixed;
+$app-background-image: url('assets/img/layout/bg-primary.png') no-repeat top center;
+$app-border: 0;
+
+$global-mask-gradient: linear-gradient(135deg, rgba(#16336e, .9) 0%, rgba(#632882, .9) 100%);
+$global-radius: .25rem;
+// $global-box-shadow: 0 0 1.5rem rgba($black, .35);
+$global-box-shadow: 0 0 47px 0 rgba(0, 0, 0, .05);
+
+// ANIMATION & TRANSITION
+// ----------------------
+$global-transition-timing: .3s;
+$global-transition-easing: ease;
+$global-transition: all $global-transition-timing $global-transition-easing;
+
+// Motion Ui
+$motion-ui-speeds: (
+  default: 300ms,
+  slow: 600ms,
+  fast: 150ms,
+);
+$motion-ui-easings: (
+  default: ease
+);
+
+// PRINT
+// ---------------
+$print-transparent-backgrounds: true;
+$print-breakpoint: large;

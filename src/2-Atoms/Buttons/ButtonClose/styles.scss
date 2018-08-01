@@ -1,0 +1,68 @@
+//////////////////////////////////////////////////////////
+//  BUTTON CLOSE
+//////////////////////////////////////////////////////////
+$button-close-color: $dark-gray;
+
+@mixin _button-close(
+  $size: default,
+  $color: inherit
+) {
+
+  // -- BASE
+  @include disable-mouse-outline;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 2px;
+  transition: $global-transition;
+  color: $color;
+  opacity: .8;
+
+  > span {
+    @include center(xy);
+  }
+
+  &:focus,
+  &:hover {
+    opacity: 1;
+  }
+
+  // -- SIZES
+  @if $size == default {
+    font-size: 2rem;
+    @include output-rhythm(height, rhythm(1));
+    @include output-rhythm(width, rhythm(1));
+  }
+  @if $size == small {
+    font-size: 1rem;
+    @include output-rhythm(height, rhythm(1));
+    @include output-rhythm(width, rhythm(1));
+  }
+  @if $size == large {
+    font-size: 3rem;
+    @include output-rhythm(height, rhythm(1.5));
+    @include output-rhythm(width, rhythm(1.5));
+  }
+}
+
+.button-close {
+  @include _button-close;
+
+  // -- SIZES
+  &.is-small {
+    font-size: 1.5rem;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  &.is-large {
+    font-size: 3rem;
+    height: 3rem;
+    width: 3rem;
+  }
+
+  // -- ROUNDED
+  &.rounded {
+    border-radius: 100%;
+  }
+}

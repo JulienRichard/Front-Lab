@@ -1,0 +1,86 @@
+// -- DEV-PANEL
+.dev-panel {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 0 rhythm(.5) rhythm(.5) 0;
+  z-index: 999999999;
+}
+
+.dev-panel--screen-sizes {
+  display: inline-block;
+  vertical-align: middle;
+
+  .tag {
+    box-shadow: $global-box-shadow;
+  }
+}
+
+.dev-panel--buttons {
+  display: inline-block;
+
+  &,
+  .button-icon {
+    margin-bottom: 0 !important;
+  }
+
+  .button-icon {
+    box-shadow: $global-box-shadow;
+  }
+}
+
+.devtools--site-content {
+  z-index: 999999999;
+}
+
+// -- BASELINE (v-Rhythm)
+.show-baseline {
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    @include debug-vertical-alignment;
+    z-index: 0;
+  }
+}
+
+// -- GLOBAL GRID
+.show-global-grid {
+  &::before {
+    content: '';
+    display: block;
+    position: fixed;
+    left: rhythm(.5);
+    right: rhythm(.5);
+    top: 0;
+    bottom: 0;
+    opacity: .25;
+    background-image: url('../../../assets/img/layout/grid-columns-full.png');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: repeat-y;
+  }
+}
+
+// -- WRAPPER GRID
+.show-wrapper-grid {
+  &::before {
+    content: '';
+    @include _wrapper;
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: .25;
+    background-image: url('../../../assets/img/layout/grid-columns.png');
+    background-size: calc(100% - 1.5rem);
+    background-position: center;
+    background-repeat: repeat-y;
+  }
+}

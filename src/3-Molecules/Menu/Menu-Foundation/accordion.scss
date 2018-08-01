@@ -1,0 +1,57 @@
+//////////////////////////////////////////////////////////
+//  MENU ACCORDION
+//////////////////////////////////////////////////////////
+// Item
+$menu-accordion-item-arrow: true;
+$menu-accordion-item-arrow-color: $primary-color;
+
+// Item parent
+$menu-accordion-parent-active-color: $white;
+$menu-accordion-parent-active-background: $secondary-color;
+$menu-accordion-parent-arrow-hover-color: $white;
+$menu-accordion-parent-arrow-active-color: $white;
+
+//  ACCORDION ITEM
+// --------------------------
+.is-accordion-submenu-parent {
+  @if $menu-accordion-item-arrow == true {
+    > a {
+      position: relative;
+
+      &::after {
+        right: rhythm(1);
+        @include center(y);
+        @include _arrow($color: $menu-accordion-item-arrow-color, $direction: down);
+      }
+
+      &:hover {
+        &::after {
+          @include _arrow($color: $menu-accordion-parent-arrow-hover-color, $direction: down);
+        }
+      }
+    }
+  }
+
+  // Active State
+  &[aria-expanded='true'] > a {
+    color: $menu-accordion-parent-active-color;
+    background-color: $menu-accordion-parent-active-background;
+
+    @if $menu-accordion-item-arrow == true {
+      &::after {
+        @include _arrow($color: $menu-accordion-parent-arrow-active-color, $direction: up);
+      }
+    }
+  }
+}
+
+.is-accordion-submenu {
+  margin-left: 0;
+  position: relative;
+  background-color: rgba($primary-color, .125);
+
+  li a {
+    padding-top: rhythm(.25);
+    padding-bottom: rhythm(.25);
+  }
+}

@@ -1,0 +1,51 @@
+//////////////////////////////////////////////////////////
+//  BUTTONS GROUP
+//////////////////////////////////////////////////////////
+.button-group {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  margin-bottom: rhythm(1);
+
+  .button,
+  .button-icon {
+    flex: 0 0 auto;
+    border-radius: 0;
+    margin-bottom: 0;
+
+    // Basic
+    &:first-child {
+      border-bottom-left-radius: $global-radius;
+      border-top-left-radius: $global-radius;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: $global-radius;
+      border-top-right-radius: $global-radius;
+    }
+
+    // Rounded
+    &.is-rounded {
+      border-radius: 0;
+
+      &:first-child {
+        border-bottom-left-radius: 2em;
+        border-top-left-radius: 2em;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: 2em;
+        border-top-right-radius: 2em;
+      }
+    }
+
+    // Hollow
+    &.is-hollow {
+      margin-left: -2px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}

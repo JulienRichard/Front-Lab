@@ -1,0 +1,117 @@
+$tabs-list-background: transparent;
+$tabs-list-border-color: rgba($white, .25);
+
+$tab-txt-color: $white;
+$tab-txt-color-hover: $white;
+$tab-txt-color-active: $white;
+
+$tab-border-color: $white;
+$tab-border-color-hover: $secondary-color;
+$tab-border-color-active: $highlight-color;
+
+$tab-background-hover: transparent;
+$tab-background-active: transparent;
+
+// -- TABS
+.tabs {
+  @include clearfix;
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  justify-content: flex-start;
+  background-color: $tabs-list-background;
+  margin-bottom: rhythm(1);
+
+  &::before {
+    content: '';
+    display: block;
+    height: 2px;
+    position: absolute;
+    left: rhythm(.5);
+    right: rhythm(.5);
+    bottom: 0;
+    background-color: $tabs-list-border-color;
+  }
+
+  // -- ALIGNMENTS
+  // Centered
+  &.is-centered {
+    flex: none;
+    justify-content: center;
+  }
+
+  // Expanded
+  &.is-expanded {
+    > li {
+      text-align: center;
+      flex: 1 1 0;
+
+      > a {
+        justify-content: center;
+      }
+    }
+  }
+
+  // Wrapped
+  &.wrapper {
+    > li {
+      text-align: center;
+      flex: 1 1 0;
+
+      > a {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// -- TAB
+.tab {
+  > a {
+    display: block;
+    position: relative;
+    color: $tab-txt-color;
+    transition: $global-transition;
+    @include padding-block(.5, 1, .5, 1);
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      height: 2px;
+      width: 0;
+      opacity: 0;
+      transition: all .3s ease;
+    }
+
+    // HOVER STATE
+    &:hover {
+      color: $tab-txt-color-hover;
+      background: $tab-background-hover;
+
+      &::before {
+        left: 0;
+        width: 100%;
+        opacity: 1;
+        background-color: $tab-border-color-hover;
+      }
+    }
+
+    // ACTIVE STATE
+    &:focus,
+    &[aria-selected='true'] {
+      color: $tab-txt-color-active;
+      background-color: $tab-background-active;
+
+      &::before {
+        left: 0;
+        width: 100%;
+        opacity: 1;
+        background-color: $tab-border-color-active;
+      }
+    }
+  }
+}

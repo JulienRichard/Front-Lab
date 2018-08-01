@@ -1,0 +1,331 @@
+//////////////////////////////////////////////////////////
+//  RESET STYLES
+//////////////////////////////////////////////////////////
+/* stylelint-disable */
+
+// ----------------------------------------------
+// Eric Meyer's Reset CSS v2.0
+// (https://meyerweb.com/eric/tools/css/reset/)
+// ----------------------------------------------
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+// ----------------------------------------------
+// FRONT-LAB Reset
+// ----------------------------------------------
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: 0 solid transparent;
+}
+
+// Default body styles
+body {
+  font-family: $body-font-family;
+  color: $body-font-color;
+  background: $app-background-gradient;
+  line-height: rhythm(1);
+
+  // antialiasing
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Selection
+  *::selection {
+    color: $primary-color;
+    background: $white;
+  }
+}
+
+button,
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  border: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// IMAGES
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+// Change Auto-complete fields in webkit browsers
+#app-wrapper {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    border: 0;
+    -webkit-text-fill-color: $body-font-color !important;
+    -webkit-box-shadow: 0 0 0 0 rgba($white, 0) inset;
+    transition: background-color 5000s ease-in-out 0s;
+    background-color: rgba($white, 0) !important;
+    color: inherit !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------------
+SCSS Form Reset Helpers - Forked from: https://gist.github.com/anthonyshort/552543
+-----------------------------------------------------------------------------------*/
+@mixin form-reset-general {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  width: auto;
+  vertical-align: middle; // IE6,IE7
+  white-space: normal;
+  line-height: inherit;
+  background: none;
+
+  /* Browsers have different default form fonts */
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+%form-reset-general {
+  @include form-reset-general;
+}
+
+@mixin form-reset-special-box-sizing {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+%form-reset-special-box-sizing {
+  @include form-reset-special-box-sizing;
+}
+
+@mixin form-reset-input-specific {
+  &:focus {
+    outline: 0;
+  }
+
+  &[type=checkbox],
+  &[type=radio] {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* Make webkit render the search input like a normal text field */
+  &[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+  }
+
+  /* Turn off the recent search for webkit. It adds about 15px padding on the left */
+  @at-root {
+    ::-webkit-search-decoration {
+      display: none;
+    }
+  }
+
+  /* Fix IE7 display bug */
+  &[type="reset"],
+  &[type="button"],
+  &[type="submit"] {
+    overflow: visible;
+  }
+}
+
+@mixin form-reset-input {
+  @include form-reset-general;
+  @include form-reset-input-specific;
+
+  /* These elements are usually rendered a certain way by the browser */
+  &[type=reset],
+  &[type=button],
+  &[type=submit],
+  &[type=checkbox],
+  &[type=radio] {
+    @include form-reset-special-box-sizing;
+  }
+}
+
+%form-reset-input {
+  @extend %form-reset-general;
+  @include form-reset-input-specific;
+
+  /* These elements are usually rendered a certain way by the browser */
+  &[type=reset],
+  &[type=button],
+  &[type=submit],
+  &[type=checkbox],
+  &[type=radio] {
+    @extend %form-reset-special-box-sizing;
+  }
+}
+
+@mixin form-reset-label {
+  @include form-reset-general;
+}
+
+%form-reset-label {
+  @extend %form-reset-general;
+}
+
+@mixin form-reset-select-specific {
+  /* Move the label to the top */
+  &[multiple] {
+    vertical-align: top;
+  }
+}
+
+@mixin form-reset-select {
+  @include form-reset-general;
+  @include form-reset-special-box-sizing;
+  @include form-reset-select-specific;
+}
+
+%form-reset-select {
+  @extend %form-reset-general;
+  @extend %form-reset-special-box-sizing;
+  @include form-reset-select-specific;
+}
+
+@mixin form-reset-button-specific {
+  background: none;
+  border: 0;
+  outline: none;
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+
+  /* IE8 and FF freak out if this rule is within another selector */
+  @at-root {
+    ::-webkit-file-upload-button {
+      padding: 0;
+      border: 0;
+      background: none;
+    }
+  }
+}
+
+@mixin form-reset-button {
+  @include form-reset-general;
+  @include form-reset-button-specific;
+}
+
+%form-reset-button {
+  @extend %form-reset-general;
+  @include form-reset-button-specific;
+}
+
+@mixin form-reset-textarea-specific {
+  /* Move the label to the top */
+  vertical-align: top;
+
+  /* Turn off scroll bars in IE unless needed */
+  overflow: auto;
+}
+
+@mixin form-reset-textarea {
+  @include form-reset-general;
+  @include form-reset-textarea-specific;
+}
+
+%form-reset-textarea {
+  @extend %form-reset-general;
+  @include form-reset-textarea-specific;
+}
+
+input {
+  @extend %form-reset-input;
+}
+
+label {
+  @extend %form-reset-label;
+}
+
+select {
+  @extend %form-reset-select;
+}
+
+button {
+  @extend %form-reset-button;
+}
+
+textarea {
+  @extend %form-reset-textarea;
+}
+
+/* stylelint-enable */

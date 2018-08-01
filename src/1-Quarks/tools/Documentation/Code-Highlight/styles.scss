@@ -1,0 +1,39 @@
+// Import Highlight Syntax
+// - Dark Theme
+// @import url('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow-night.min.css');
+// - Light Theme
+@import url('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css');
+
+.highlight-code {
+  position: relative;
+  padding-top: rhythm(1);
+}
+
+pre {
+  padding: rhythm(1);
+  margin-bottom: rhythm(1);
+  background-color: $white;
+  color: $dark-gray;
+  overflow-x: scroll;
+  border-radius: $global-radius;
+  box-shadow: $global-box-shadow;
+}
+
+.code-language {
+  position: absolute;
+  top: rhythm(.5);
+  left: rhythm(.5);
+
+  &.html {
+    background-color: $secondary-color;
+  }
+
+  &.scss,
+  &.css {
+    background-color: $primary-color;
+  }
+
+  &.javascript {
+    background-color: $highlight-color;
+  }
+}

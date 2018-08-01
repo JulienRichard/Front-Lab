@@ -1,0 +1,126 @@
+//////////////////////////////////////////////////////////
+//  MENU DRILLDOWN
+//////////////////////////////////////////////////////////
+// Global
+$menu-drilldown-transition: transform .15s linear;
+$menu-drilldown-padding: $global-menu-padding;
+$menu-drilldown-nested-margin: 0;
+$menu-drilldown-background: $white;
+$menu-drilldown-submenu-padding: $menu-drilldown-padding;
+$menu-drilldown-submenu-background: $white;
+
+$menu-drilldown-arrows: true;
+$menu-drilldown-arrow-color: $primary-color;
+
+// Item
+$menu-drilldown-item-transition: all .3s ease;
+$menu-drilldown-item-padding-x: 1;
+$menu-drilldown-item-padding-y: .5;
+
+$menu-drilldown-item-color: $white;
+$menu-drilldown-item-background: transparent;
+$menu-drilldown-item-color-hover: $white;
+$menu-drilldown-item-background-hover: $secondary-color;
+
+// DRILLDOWN ITEM
+// ----------------
+// ARROWS
+@mixin menu-drilldown-left-right-arrows {
+  .is-drilldown-submenu-parent > a {
+    position: relative;
+
+    &::after {
+      @include center(y);
+      right: 1rem;
+      @include _arrow($color: $menu-drilldown-arrow-color, $direction: right);
+    }
+  }
+
+  &.align-left .is-drilldown-submenu-parent > a::after {
+    left: auto;
+    right: 1rem;
+    @include _arrow($color: $menu-drilldown-arrow-color, $direction: right);
+  }
+
+  &.align-right .is-drilldown-submenu-parent > a::after {
+    right: auto;
+    left: 1rem;
+    @include _arrow($color: $menu-drilldown-arrow-color, $direction: left);
+  }
+}
+
+.is-drilldown {
+  position: relative;
+  overflow: hidden;
+
+  li {
+    display: block;
+  }
+
+  &.animate-height {
+    transition: height .5s;
+  }
+}
+
+// The top level <ul>
+.drilldown {
+  flex-wrap: wrap;
+
+  .is-nested {
+    margin: 0;
+  }
+
+  > li {
+    display: block;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  a {
+    padding: $menu-drilldown-padding;
+    background: $menu-drilldown-background;
+  }
+
+  // Applied to submenu <ul>s
+  .is-drilldown-submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: -1;
+
+    width: 100%;
+    background: $menu-drilldown-submenu-background;
+    transition: $menu-drilldown-transition;
+
+    &.is-active {
+      z-index: 1;
+      display: block;
+      transform: translateX(-100%);
+    }
+
+    &.is-closing {
+      transform: translateX(100%);
+    }
+
+    // Submenu item padding
+    a {
+      padding: $menu-drilldown-submenu-padding;
+    }
+  }
+
+  .drilldown-submenu-cover-previous {
+    min-height: 100%;
+  }
+
+  @if $menu-drilldown-arrows {
+    @include menu-drilldown-left-right-arrows;
+
+    .js-drilldown-back > a::before {
+      @include _arrow($color: $menu-drilldown-arrow-color, $direction: left);
+      border-left-width: 0;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: .75rem;
+    }
+  }
+}

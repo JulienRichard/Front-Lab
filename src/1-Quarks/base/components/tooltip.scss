@@ -1,0 +1,537 @@
+// Default
+$tooltip-background: rgba($primary-color, .9);
+$tooltip-text-color: $white;
+$tooltip-padding: rhythm(.25) rhythm(.35);
+$tooltip-radius: $global-radius;
+$tooltip-box-shadow: $global-box-shadow;
+
+// Light Theme
+$tooltip-light-background: rgba($white, .9);
+$tooltip-light-text-color: $black;
+
+// Dark Theme
+$tooltip-dark-background: rgba($black, .9);
+$tooltip-dark-text-color: $white;
+
+//////////////////////////////////////////////////////////
+//  TOOLTIPS > Mixins
+//////////////////////////////////////////////////////////
+@mixin enter-transform ($placement, $animation) {
+  @if ($animation == 'perspective') {
+    @if ($placement == 'top') {
+      transform: translateY(-10px) rotateX(0);
+    }
+    @else if ($placement == 'bottom') {
+      transform: translateY(10px) rotateX(0);
+    }
+    @else if ($placement == 'left') {
+      transform: translateX(-10px) rotateY(0);
+    }
+    @else if ($placement == 'right') {
+      transform: translateX(10px) rotateY(0);
+    }
+  }
+  @else if ($animation == 'fade') {
+    @if ($placement == 'top') {
+      transform: translateY(-10px);
+    }
+    @else if ($placement == 'bottom') {
+      transform: translateY(10px);
+    }
+    @else if ($placement == 'left') {
+      transform: translateX(-10px);
+    }
+    @else if ($placement == 'right') {
+      transform: translateX(10px);
+    }
+  }
+  @else if ($animation == 'scale') {
+    @if ($placement == 'top') {
+      transform: translateY(-10px) scale(1);
+    }
+    @else if ($placement == 'bottom') {
+      transform: translateY(10px) scale(1);
+    }
+    @else if ($placement == 'left') {
+      transform: translateX(-10px) scale(1);
+    }
+    @else if ($placement == 'right') {
+      transform: translateX(10px) scale(1);
+    }
+  }
+}
+
+@mixin leave-transform ($placement, $animation) {
+  @if ($animation == 'perspective') {
+    @if ($placement == 'top') {
+      transform: translateY(0) rotateX(90deg);
+    }
+    @else if ($placement == 'bottom') {
+      transform: translateY(0) rotateX(-90deg);
+    }
+    @else if ($placement == 'left') {
+      transform: translateX(0) rotateY(-90deg);
+    }
+    @else if ($placement == 'right') {
+      transform: translateX(0) rotateY(90deg);
+    }
+  }
+  @else if ($animation == 'shift-away') {
+    @if ($placement == 'top') {
+      transform: translateY(0);
+    }
+    @else if ($placement == 'bottom') {
+      transform: translateY(0);
+    }
+    @else if ($placement == 'left') {
+      transform: translateX(0);
+    }
+    @else if ($placement == 'right') {
+      transform: translateX(0);
+    }
+  }
+  @else if ($animation == 'scale') {
+    @if ($placement == 'top') {
+      transform: translateY(0) scale(0);
+    }
+    @else if ($placement == 'bottom') {
+      transform: translateY(0) scale(0);
+    }
+    @else if ($placement == 'left') {
+      transform: translateX(0) scale(0);
+    }
+    @else if ($placement == 'right') {
+      transform: translateX(0) scale(0);
+    }
+  }
+  @else if ($animation == 'shift-toward') {
+    @if ($placement == 'top') {
+      transform: translateY(-20px);
+    }
+    @else if ($placement == 'bottom') {
+      transform: translateY(20px);
+    }
+    @else if ($placement == 'left') {
+      transform: translateX(-20px);
+    }
+    @else if ($placement == 'right') {
+      transform: translateX(20px);
+    }
+  }
+}
+
+@mixin backdrop-transform-enter ($placement) {
+  $scale: 5.5;
+  @if ($placement == 'top') {
+    transform: scale($scale) translate(-50%, 25%);
+  }
+  @else if ($placement == 'bottom') {
+    transform: scale($scale) translate(-50%, -125%);
+  }
+  @else if ($placement == 'left') {
+    transform: scale($scale) translate(33%, -50%);
+  }
+  @else if ($placement == 'right') {
+    transform: scale($scale) translate(-133%, -50%);
+  }
+}
+
+@mixin backdrop-transform-leave ($placement) {
+  @if ($placement == 'top') {
+    transform: scale(1) translate(-50%, 25%);
+  }
+  @else if ($placement == 'bottom') {
+    transform: scale(1) translate(-50%, -125%);
+  }
+  @else if ($placement == 'left') {
+    transform: scale(1.5) translate(33%, -50%);
+  }
+  @else if ($placement == 'right') {
+    transform: scale(1.5) translate(-133%, -50%);
+  }
+}
+
+@mixin arrow ($placement, $width, $color) {
+  @if ($placement == 'top') {
+    border-top: $width solid $color;
+    border-right: $width solid transparent;
+    border-left: $width solid transparent;
+  }
+  @else if ($placement == 'bottom') {
+    border-bottom: $width solid $color;
+    border-right: $width solid transparent;
+    border-left: $width solid transparent;
+  }
+  @else if ($placement == 'left') {
+    border-left: $width solid $color;
+    border-top: $width solid transparent;
+    border-bottom: $width solid transparent;
+  }
+  @else if ($placement == 'right') {
+    border-right: $width solid $color;
+    border-top: $width solid transparent;
+    border-bottom: $width solid transparent;
+  }
+}
+
+@mixin arrow-position ($placement, $width) {
+  @if ($placement == 'top') {
+    bottom: -$width;
+  }
+  @else if ($placement == 'bottom') {
+    top: -$width;
+  }
+  @else if ($placement == 'left') {
+    right: -$width;
+  }
+  @else if ($placement == 'right') {
+    left: -$width;
+  }
+}
+
+@mixin arrow-margin ($placement) {
+  @if ($placement == 'top' or $placement == 'bottom') {
+    margin: 0 9px;
+  }
+  @else {
+    margin: 6px 0;
+  }
+}
+
+@mixin roundarrow ($placement, $width, $color) {
+  width: $width;
+  height: $width;
+  fill: $color;
+}
+@mixin roundarrow-margin ($placement) {
+  @if ($placement == 'top' or $placement == 'bottom') {
+    margin: 0 6px;
+  }
+  @else {
+    margin: 4px 0;
+  }
+}
+
+@mixin roundarrow-transform ($placement) {
+  @if ($placement == 'top') {
+    transform: rotate(180deg);
+  }
+  @else if ($placement == 'bottom') {
+    transform: rotate(0);
+  }
+  @else if ($placement == 'left') {
+    transform: rotate(90deg);
+  }
+  @else if ($placement == 'right') {
+    transform: rotate(-90deg);
+  }
+}
+
+//////////////////////////////////////////////////////////
+//  TOOLTIPS > Markup
+//////////////////////////////////////////////////////////
+$placements: 'top', 'bottom', 'left', 'right';
+$origins: bottom, top, right, left;
+$backdrop-origins: 0% 100%, 0 -100%, 100% 0%, -100% 0%;
+$backdrop-border-radii: 40% 40% 0 0, 0 0 30% 30%, 30% 0 0 30%, 0 30% 30% 0;
+
+@mixin frontlab-tooltip {
+  .tippy-touch {
+    cursor: pointer !important;
+  }
+
+  .tippy-notransition {
+    transition: none !important;
+  }
+
+  .tippy-popper {
+    max-width: 350px;
+    perspective: 700px;
+    z-index: 9999;
+    outline: 0;
+    transition-timing-function: cubic-bezier(.165, .84, .44, 1);
+    pointer-events: none;
+
+    &.html-template {
+      // max-width: 96%;
+      // max-width: calc(100% - 20px);
+    }
+
+    @each $placement in $placements {
+      &[x-placement^=#{$placement}] {
+        .tippy-backdrop {
+          border-radius: nth($backdrop-border-radii, index($placements, $placement));
+        }
+
+        .tippy-roundarrow,
+        [x-circle] {
+          @include roundarrow($placement, 23px, $tooltip-background);
+          @include arrow-position($placement, 15px);
+          @include roundarrow-margin($placement);
+
+          svg {
+            @include roundarrow-transform($placement);
+          }
+        }
+
+        .tippy-arrow,
+        [x-arrow] {
+          @include arrow($placement, 7px, $tooltip-background);
+          @include arrow-position($placement, 7px);
+          @include arrow-margin($placement);
+        }
+
+        .tippy-backdrop {
+          transform-origin: nth($backdrop-origins, index($placements, $placement));
+
+          &.enter {
+            @include backdrop-transform-enter($placement);
+            opacity: 1;
+          }
+
+          &.leave {
+            @include backdrop-transform-leave($placement);
+            opacity: 0;
+          }
+        }
+
+        [data-animation=shift-toward] {
+          &.enter {
+            opacity: 1;
+            @include enter-transform($placement, 'fade');
+          }
+
+          &.leave {
+            opacity: 0;
+            @include leave-transform($placement, 'shift-toward');
+          }
+        }
+
+        [data-animation=perspective] {
+          transform-origin: nth($origins, index($placements, $placement));
+
+          &.enter {
+            opacity: 1;
+            @include enter-transform($placement, 'perspective');
+          }
+
+          &.leave {
+            opacity: 0;
+            @include leave-transform($placement, 'perspective');
+          }
+        }
+
+        [data-animation=fade] {
+          &.enter {
+            opacity: 1;
+            @include enter-transform($placement, 'fade');
+          }
+
+          &.leave {
+            opacity: 0;
+            @include enter-transform($placement, 'fade');
+          }
+        }
+
+        [data-animation=shift-away] {
+          &.enter {
+            opacity: 1;
+            @include enter-transform($placement, 'fade');
+          }
+
+          &.leave {
+            opacity: 0;
+            @include leave-transform($placement, 'shift-away');
+          }
+        }
+
+        [data-animation=scale] {
+          &.enter {
+            opacity: 1;
+            @include enter-transform($placement, 'scale');
+          }
+
+          &.leave {
+            opacity: 0;
+            @include leave-transform($placement, 'scale');
+          }
+        }
+      }
+    }
+  }
+
+  .tippy-tooltip {
+    position: relative;
+    color: $tooltip-text-color;
+    border-radius: $tooltip-radius;
+    padding: $tooltip-padding;
+    text-align: center;
+    will-change: transform;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: $tooltip-background;
+    box-shadow: $tooltip-box-shadow;
+
+    img {
+      max-width: 20rem;
+    }
+
+    &[data-size=small] {
+      padding: rhythm(.125) rhythm(.25);
+      font-size: .75rem;
+    }
+
+    &[data-size=large] {
+      padding: rhythm(1);
+      font-size: 1rem;
+    }
+
+    &[data-animatefill] {
+      overflow: hidden;
+      background-color: transparent;
+
+      .tippy-content {
+        transition: clip-path cubic-bezier(.46, .1, .52, .98);
+      }
+    }
+
+    &[data-interactive] {
+      pointer-events: auto;
+    }
+
+    &[data-inertia] {
+      &.enter {
+        transition-timing-function: cubic-bezier(.53, 2, .36, .85);
+      }
+
+      &.leave {
+        transition-timing-function: ease;
+      }
+    }
+  }
+
+  [x-arrow],
+  [x-circle] {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .tippy-backdrop {
+    position: absolute;
+    will-change: transform;
+    background-color: $primary-color;
+    border-radius: 50%;
+    width: 26%;
+    left: 50%;
+    top: 50%;
+    z-index: -1;
+    transition: all cubic-bezier(.46, .1, .52, .98);
+
+    &::after {
+      content: '';
+      float: left;
+      padding-top: 100%;
+    }
+  }
+
+  /* iOS Safari does not like clip path transition */
+  body:not(.tippy-touch) {
+    .tippy-tooltip[data-animatefill] {
+      &.enter {
+        .tippy-content {
+          clip-path: ellipse(100% 100% at 50% 50%);
+        }
+      }
+
+      &.leave {
+        .tippy-content {
+          clip-path: ellipse(5% 50% at 50% 50%);
+        }
+      }
+    }
+
+    .tippy-popper[x-placement=right] {
+      .tippy-tooltip[data-animatefill] {
+        &.enter {
+          .tippy-content {
+            clip-path: ellipse(135% 100% at 0% 50%);
+          }
+        }
+
+        &.leave {
+          .tippy-content {
+            clip-path: ellipse(25% 100% at 0% 50%);
+          }
+        }
+      }
+    }
+
+    .tippy-popper[x-placement=left] {
+      .tippy-tooltip[data-animatefill] {
+        &.enter {
+          .tippy-content {
+            clip-path: ellipse(135% 100% at 100% 50%);
+          }
+        }
+
+        &.leave {
+          .tippy-content {
+            clip-path: ellipse(25% 100% at 100% 50%);
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 360px) {
+    .tippy-popper {
+      max-width: 96%;
+      max-width: calc(100% - 20px);
+    }
+  }
+
+  //////////////////////////////////////////////////////////
+  //  TOOLTIPS > LIGHT Theme
+  //////////////////////////////////////////////////////////
+  .tippy-tooltip.light-theme {
+    background-color: $tooltip-light-background;
+    color: $tooltip-light-text-color;
+  }
+
+  @each $placement in $placements {
+    &[x-placement^=#{$placement}] {
+      .tippy-tooltip.light-theme {
+        [x-circle] {
+          @include roundarrow($placement, 23px, $tooltip-light-background);
+        }
+
+        [x-arrow] {
+          @include arrow($placement, 7px, $tooltip-light-background);
+        }
+      }
+    }
+  }
+
+  //////////////////////////////////////////////////////////
+  //  TOOLTIPS > DARK Theme
+  //////////////////////////////////////////////////////////
+  .tippy-tooltip.dark-theme {
+    background-color: $tooltip-dark-background;
+    color: $tooltip-dark-text-color;
+  }
+
+  @each $placement in $placements {
+    &[x-placement^=#{$placement}] {
+      .tippy-tooltip.dark-theme {
+        [x-circle] {
+          @include roundarrow($placement, 23px, $tooltip-dark-background);
+        }
+
+        [x-arrow] {
+          @include arrow($placement, 7px, $tooltip-dark-background);
+        }
+      }
+    }
+  }
+}

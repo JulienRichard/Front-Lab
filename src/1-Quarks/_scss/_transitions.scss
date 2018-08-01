@@ -1,0 +1,46 @@
+//////////////////////////////////////////////////////////
+//  TRANSITIONS / ANIMATIONS
+//////////////////////////////////////////////////////////
+@mixin frontlab-transitions {
+
+  // -- FADE
+  .fade {
+    &-enter-active,
+    &-leave-active {
+      transition: opacity .3s;
+    }
+
+    &-enter,
+    &-leave-to {
+      opacity: 0;
+    }
+  }
+
+  // -- FADE-IN UP
+  .fade-in-up {
+    &-enter-active {
+      transition: all .3s ease-out;
+    }
+
+    &-leave-active {
+      transition: all .3s ease-in;
+    }
+
+    &-enter,
+    &-leave-to {
+      opacity: 0;
+      transform: translateY(rhythm(1));
+      max-height: 0;
+    }
+
+    &-enter-to {
+      max-height: 1000px;
+      opacity: 1;
+    }
+
+    &-leave {
+      opacity: 1;
+      max-height: 1000px;
+    }
+  }
+}

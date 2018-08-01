@@ -1,0 +1,61 @@
+// Dark Theme
+$box-dark--bg: $black;
+$box-dark--txt-color: $white;
+$box-dark--border: 0;
+$box-dark--box-shadow: $global-box-shadow;
+
+@mixin frontlab-darkTheme {
+  // -- DARK THEME
+  .section.is-dark,
+  .box.is-dark,
+  .card.is-dark {
+    color: $box-dark--txt-color;
+    background: $box-dark--bg;
+    border: $box-dark--border;
+    box-shadow: $box-dark--box-shadow;
+    margin-top: 0;
+
+    // Headers
+    @each $header, $color in map-get($headers-color, darkTheme) {
+      #{$header},
+      .like-#{$header} {
+        color: $color;
+
+        small,
+        .subtitle {
+          color: rgba($color, .75);
+        }
+      }
+    }
+
+    h1.is-underlined,
+    .like-h1.is-underlined {
+      box-shadow: inset 0 rhythm(-.25) 0 0 map-get(map-get($headers-color, darkTheme), h1);
+    }
+
+    h2.is-underlined,
+    .like-h2.is-underlined {
+      box-shadow: inset 0 rhythm(-.2) 0 0 map-get(map-get($headers-color, darkTheme), h2);
+    }
+
+    h3.is-underlined,
+    .like-h3.is-underlined {
+      box-shadow: inset 0 rhythm(-.15) 0 0 map-get(map-get($headers-color, darkTheme), h3);
+    }
+
+    h4.is-underlined,
+    .like-h4.is-underlined {
+      box-shadow: inset 0 rhythm(-.1) 0 0 map-get(map-get($headers-color, darkTheme), h4);
+    }
+
+    h5.is-underlined,
+    .like-h5.is-underlined {
+      box-shadow: inset 0 2px 0 0 map-get(map-get($headers-color, darkTheme), h5);
+    }
+
+    h6.is-underlined,
+    .like-h6.is-underlined {
+      box-shadow: inset 0 1px 0 0 map-get(map-get($headers-color, darkTheme), h6);
+    }
+  }
+}

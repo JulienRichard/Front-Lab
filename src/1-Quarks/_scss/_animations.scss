@@ -1,0 +1,25 @@
+//////////////////////////////////////////////////////////
+//  ANIMATIONS
+//////////////////////////////////////////////////////////
+
+// -- SPIN
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359.999deg);
+  }
+}
+
+
+@mixin frontlab-animations {
+  .is-spin {
+    animation: spin 2s infinite linear;
+  }
+
+  .is-pulse {
+    animation: spin 1s infinite steps(8);
+  }
+}

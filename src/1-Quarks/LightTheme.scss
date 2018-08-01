@@ -1,0 +1,68 @@
+// Light Theme
+$box-light--bg: $white;
+$box-light--txt-color: $primary-color;
+$box-light--border: 0;
+$box-light--box-shadow: $global-box-shadow;
+
+@mixin frontlab-lightTheme {
+  // -- LIGHT THEME
+  .section.is-light,
+  .box.is-light,
+  .card.is-light {
+    color: $box-light--txt-color;
+    background: $box-light--bg;
+    box-shadow: $box-light--box-shadow;
+    border: $box-light--border;
+    margin-top: 0;
+
+    // TYPOGRAPHY HEADERS
+    @each $header, $color in map-get($headers-color, lightTheme) {
+      #{$header},
+      .like-#{$header} {
+        color: $color;
+
+        small,
+        .subtitle {
+          color: rgba($color, .75);
+        }
+      }
+    }
+
+    h1.is-underlined,
+    .like-h1.is-underlined {
+      box-shadow: inset 0 rhythm(-.25) 0 0 map-get(map-get($headers-color, lightTheme), h1);
+    }
+
+    h2.is-underlined,
+    .like-h2.is-underlined {
+      box-shadow: inset 0 rhythm(-.2) 0 0 map-get(map-get($headers-color, lightTheme), h2);
+    }
+
+    h3.is-underlined,
+    .like-h3.is-underlined {
+      box-shadow: inset 0 rhythm(-.15) 0 0 map-get(map-get($headers-color, lightTheme), h3);
+    }
+
+    h4.is-underlined,
+    .like-h4.is-underlined {
+      box-shadow: inset 0 rhythm(-.1) 0 0 map-get(map-get($headers-color, lightTheme), h4);
+    }
+
+    h5.is-underlined,
+    .like-h5.is-underlined {
+      box-shadow: inset 0 2px 0 0 map-get(map-get($headers-color, lightTheme), h5);
+    }
+
+    h6.is-underlined,
+    .like-h6.is-underlined {
+      box-shadow: inset 0 1px 0 0 map-get(map-get($headers-color, lightTheme), h6);
+    }
+
+    // TYPOGRAPHY HELPERS
+    hr {
+      &::before {
+        background-color: $primary-color;
+      }
+    }
+  }
+}

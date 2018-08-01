@@ -1,0 +1,20 @@
+///////////////////////////////////////////////////////////////////////////////
+// GLOBAL (Settings & Tools)
+// This file gets imported in every component (scss global variables & mixins)
+///////////////////////////////////////////////////////////////////////////////
+// Import Foundation Mixins
+@import '~foundation-sites/scss/foundation';
+
+// Import Scss Settings
+@import '_settings/colors';
+@import '_settings/global';
+@import '_settings/layout';
+@import '_settings/typography';
+
+// Import Scss Mixins
+@import '1-Quarks/_scss/rhythm';
+@import '1-Quarks/_scss/layout';
+@import '1-Quarks/_scss/elements';
+@import '1-Quarks/_scss/transitions';
+@import '1-Quarks/_scss/transformations';
+@import '1-Quarks/_scss/animations';

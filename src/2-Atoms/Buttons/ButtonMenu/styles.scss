@@ -1,0 +1,95 @@
+//////////////////////////////////////////////////////////
+//  BUTTONS MENU
+//////////////////////////////////////////////////////////
+$button-menu-color: $white;
+$button-menu-layer-width: rhythm(1);
+$button-menu-layer-height: 2px;
+$button-menu-layer-spacing: 6px;
+$button-menu-layer-border-radius: 0;
+$button-menu-transition-duration: 1s;
+$button-menu-transition-timing-function: ease-in-out;
+
+.button-menu {
+  display: inline-block;
+  overflow: visible;
+  border-radius: 0;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: $button-menu-transition-duration;
+  transition-timing-function: $button-menu-transition-timing-function;
+  @include margin-block(.25);
+
+  // -- BARS
+  > span {
+    display: inline-block;
+    position: relative;
+    width: $button-menu-layer-width;
+    height: $button-menu-layer-height * 3 + $button-menu-layer-spacing * 2;
+
+    > span {
+      display: block;
+      top: 50%;
+      margin-top: $button-menu-layer-height / -2;
+
+      &,
+      &::after,
+      &::before {
+        position: absolute;
+        width: $button-menu-layer-width;
+        height: $button-menu-layer-height;
+        background-color: $button-menu-color;
+        border-radius: $button-menu-layer-border-radius;
+        transition-property: all;
+        transition-duration: .15s;
+        transition-timing-function: ease;
+      }
+
+      &::after,
+      &::before {
+        content: '';
+        display: block;
+      }
+
+      &::before {
+        top: ($button-menu-layer-spacing + $button-menu-layer-height) * -1;
+      }
+
+      &::after {
+        bottom: ($button-menu-layer-spacing + $button-menu-layer-height) * -1;
+      }
+    }
+  }
+
+  > span > span {
+    transition-duration: .1s;
+    transition-timing-function: cubic-bezier(.55, .055, .675, .19);
+
+    &::before {
+      transition: top .1s .14s ease, opacity .1s ease;
+    }
+
+    &::after {
+      transition: bottom .1s .14s ease, transform .1s cubic-bezier(.55, .055, .675, .19);
+    }
+  }
+
+  &.is-active {
+    > span > span {
+      transform: rotate(45deg);
+      transition-delay: .14s;
+      transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+
+      &::before {
+        top: 0;
+        opacity: 0;
+        transition: top .1s ease, opacity .1s .14s ease;
+      }
+
+      &::after {
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition: bottom .1s ease, transform .1s .14s cubic-bezier(.215, .61, .355, 1);
+      }
+    }
+  }
+}

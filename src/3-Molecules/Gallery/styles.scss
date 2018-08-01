@@ -1,0 +1,281 @@
+$gallery--arrow-size: 3rem;
+$gallery--arrow-opacity-default: .5;
+$gallery--arrow-opacity-on-hover: .8;
+$gallery--arrow-opacity-not-active: .25;
+
+.blueimp-gallery,
+.blueimp-gallery > .slides > .slide > .slide-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: opacity .2s linear;
+  /* Prevent artifacts in Mozilla Firefox: */
+  /* stylelint-disable */
+  -moz-backface-visibility: hidden;
+  /* stylelint-enable */
+}
+
+// -- GLOBAL STYLES
+.blueimp-gallery {
+  position: fixed;
+  z-index: 999999;
+  overflow: hidden;
+  background: $global-mask-gradient;
+  opacity: 0;
+  display: none;
+  direction: ltr;
+  /* stylelint-disable */
+  -ms-touch-action: none;
+  /* stylelint-enable */
+  touch-action: none;
+
+  // is-display
+  &.blueimp-gallery-display {
+    opacity: 1;
+  }
+
+  // SLIDES
+  > .slides {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+    > .slide {
+      position: relative;
+      float: left;
+      height: 100%;
+      text-align: center;
+      transition-timing-function: cubic-bezier(.645, .045, .355, 1);
+
+      > .slide-content {
+        margin: auto;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        opacity: 1;
+        transition: opacity .2s linear;
+
+        border-radius: $global-radius;
+        box-shadow: $global-box-shadow;
+      }
+    }
+
+    > .slide-loading {
+      > .slide-content {
+        opacity: 0;
+      }
+    }
+
+    > .slide-error {
+      > .slide-content {
+        display: none;
+      }
+    }
+  }
+
+  // BUTTONS
+  > .prev,
+  > .next {
+    display: block;
+    position: absolute;
+    @include center(y);
+    height: $gallery--arrow-size;
+    width: $gallery--arrow-size;
+    font-size: $gallery--arrow-size;
+    transition: $global-transition;
+    opacity: $gallery--arrow-opacity-default;
+    cursor: pointer;
+    display: none;
+  }
+
+  > .prev {
+    right: auto;
+    left: rhythm(1);
+
+    &::before {
+      position: absolute;
+      @include center(xy);
+      @include _arrow($direction: 'left');
+    }
+  }
+
+  > .next {
+    left: auto;
+    right: rhythm(1);
+
+    &::before {
+      position: absolute;
+      @include center(xy);
+      @include _arrow($direction: 'right');
+    }
+  }
+
+  > .close,
+  > .title {
+    position: absolute;
+    top: rhythm(1);
+    left: rhythm(1);
+    margin: 0 rhythm(2) 0 0;
+    color: #fff;
+    opacity: .8;
+    display: none;
+  }
+
+  > .close {
+    padding: rhythm(1);
+    right: rhythm(1);
+    left: auto;
+    margin: - rhythm(1);
+    font-size: 3rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  > .play-pause {
+    position: absolute;
+    right: rhythm(1);
+    bottom: rhythm(1);
+    width: rhythm(1);
+    height: rhythm(1);
+    // background: url(../img/play-pause.png) 0 0 no-repeat;
+    cursor: pointer;
+    opacity: .5;
+  }
+
+  > .prev,
+  > .next,
+  > .close,
+  > .title,
+  > .play-pause {
+    &:hover {
+      color: #fff;
+      opacity: 1;
+    }
+  }
+
+  > .slides > .slide > .slide-content,
+  > .prev,
+  > .next,
+  > .close,
+  > .play-pause {
+    user-select: none;
+  }
+}
+
+// -- VIDEOS
+.blueimp-gallery > .slides > .slide {
+  > .video-content {
+    > img {
+      position: absolute;
+      @include center(xy);
+      max-width: 100%;
+      max-height: 100%;
+      width: 80%;
+      margin: auto;
+      height: auto;
+      /* Prevent artifacts in Mozilla Firefox: */
+      /* stylelint-disable */
+      -moz-backface-visibility: hidden;
+      /* stylelint-enable */
+    }
+
+    > iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    > video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      display: none;
+    }
+
+    // Play button
+    > a {
+      position: absolute;
+      @include center(xy);
+      cursor: pointer;
+      transition: all .3s ease;
+
+      &::before {
+        display: inline-block;
+        font-family: 'FontAwesome';
+        font-size: rhythm(4);
+        color: $white;
+        text-shadow: 0 0 rhythm(.5) rgba($black, .25);
+        content: '\f01d';
+        opacity: .8;
+      }
+
+      &:hover::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  .video-playing {
+    > a,
+    > img {
+      display: none;
+    }
+
+    video {
+      display: block;
+    }
+  }
+
+  .video-loading > a {
+    // background: url(../img/loading.gif) center no-repeat;
+  }
+}
+
+
+// -- CAROUSEL
+.blueimp-gallery-carousel {
+  position: relative;
+  z-index: auto;
+  margin: 0 auto;
+  /* Set the carousel width/height ratio to 16/9: */
+  padding-bottom: 56.25%;
+  /* stylelint-disable */
+  -ms-touch-action: pan-y;
+  /* stylelint-enable */
+  touch-action: pan-y;
+
+  > .slides {
+    position: absolute;
+  }
+}
+
+// -- OTHER
+.blueimp-gallery .close {
+  z-index: 9999999999999;
+}
+
+.blueimp-gallery-controls > .prev,
+.blueimp-gallery-controls > .next,
+.blueimp-gallery-controls > .close,
+.blueimp-gallery-controls > .title,
+.blueimp-gallery-controls > .play-pause {
+  display: block;
+  /* Fix z-index issues (controls behind slide element) on Android: */
+  // transform: translateZ(0);
+}
+
+// Hide Buttons
+.blueimp-gallery-single > .prev,
+.blueimp-gallery-left > .prev,
+.blueimp-gallery-single > .next,
+.blueimp-gallery-right > .next,
+.blueimp-gallery-single > .play-pause {
+  display: none;
+}

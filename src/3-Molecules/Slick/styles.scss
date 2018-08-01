@@ -1,0 +1,197 @@
+//////////////////////////////////////////////////////////
+//  SLIDER / CAROUSEL (Slick)
+//////////////////////////////////////////////////////////
+// Arrows
+$slick-arrow-size: 2rem;
+$slick-arrow-opacity-default: .5;
+$slick-arrow-opacity-on-hover: .8;
+$slick-arrow-opacity-not-active: .25;
+
+// Dots
+$slick-dot-size: 1rem;
+
+// Slider theme
+$slider-arrow-color: $white;
+$slider-dot-color: rgba($white, .5);
+$slider-dot-color-hover: $white;
+$slider-dot-color-active: $white;
+
+// Carousel theme
+$carousel-arrow-color: $white;
+$carousel-dot-color: rgba($white, .8);
+$carousel-dot-color-hover: $secondary-color;
+$carousel-dot-color-active: $highlight-color;
+
+// -- GLOBAL STYLES
+.slick-slider {
+  margin-left: - rhythm(.5);
+  margin-right: - rhythm(.5);
+}
+
+// Carousel Item
+.slick-slide {
+  margin: 0 rhythm(.5);
+}
+
+// Collapse Item
+.slick-slider.is-collapse,
+.slick-slider.is-collapse .slick-slide {
+  margin: 0;
+}
+
+.slick-slider.is-collapse.is-carousel {
+  .slick-arrow {
+    &.slick-prev {
+      left: - rhythm(1.5);
+    }
+
+    &.slick-next {
+      right: - rhythm(1.5);
+    }
+  }
+}
+
+// -- ARROWS
+.slick-arrow {
+  display: block;
+  position: absolute;
+  @include center(y);
+  height: $slick-arrow-size;
+  width: $slick-arrow-size;
+  font-size: $slick-arrow-size;
+  transition: $global-transition;
+  opacity: $slick-arrow-opacity-default;
+  cursor: pointer;
+  z-index: 2;
+
+  &:hover {
+    opacity: $slick-arrow-opacity-on-hover;
+  }
+
+  i {
+    position: absolute;
+    @include center(xy);
+  }
+
+  &.slick-disabled {
+    cursor: default;
+    opacity: .5;
+  }
+
+  &::before {
+    display: none;
+  }
+}
+
+// -- DOTS
+.slick-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: rhythm(.5) 0;
+
+  li {
+    position: relative;
+    display: inline-block;
+    margin: 0 rhythm(.25);
+    padding: 0;
+    cursor: pointer;
+    vertical-align: middle;
+
+    button {
+      border: 0;
+      background: transparent;
+      display: block;
+      height: $slick-dot-size;
+      width: $slick-dot-size;
+      outline: none;
+      line-height: 0;
+      font-size: 0;
+      color: transparent;
+      padding: 5px;
+      cursor: pointer;
+      background-color: transparent;
+      transition: box-shadow .3s ease;
+      border-radius: 50%;
+
+      &:focus,
+      &:hover {
+        outline: none;
+      }
+    }
+  }
+}
+
+// SLIDER THEME
+// -----------------------
+.slick-slider.is-slider {
+  .slick-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: rhythm(.5);
+    margin-bottom: 0;
+
+    li {
+      button {
+        box-shadow: inset 0 0 0 2px $slider-dot-color;
+
+        &:focus,
+        &:hover {
+          box-shadow: inset 0 0 0 2px $slider-dot-color-hover;
+        }
+      }
+
+      &.slick-active button {
+        box-shadow: inset 0 0 0 1rem $slider-dot-color-active;
+      }
+    }
+  }
+
+  .slick-arrow {
+    color: $slider-arrow-color;
+
+    &.slick-prev {
+      left: rhythm(1);
+    }
+
+    &.slick-next {
+      right: rhythm(1);
+    }
+  }
+}
+
+// CAROUSEL THEME
+// --------------------
+.slick-slider.is-carousel {
+  .slick-dots {
+    li {
+      button {
+        box-shadow: inset 0 0 0 2px $carousel-dot-color;
+
+        &:focus,
+        &:hover {
+          box-shadow: inset 0 0 0 2px $carousel-dot-color-hover;
+        }
+      }
+
+      &.slick-active button {
+        box-shadow: inset 0 0 0 1rem $carousel-dot-color-active;
+      }
+    }
+  }
+
+  .slick-arrow {
+    color: $carousel-arrow-color;
+    margin-top: - rhythm(1);
+
+    &.slick-prev {
+      left: - rhythm(1);
+    }
+
+    &.slick-next {
+      right: - rhythm(1);
+    }
+  }
+}

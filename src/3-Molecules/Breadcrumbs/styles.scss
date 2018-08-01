@@ -1,0 +1,45 @@
+$breadcrumbs-item-color: $primary-color;
+$breadcrumbs-item-color-current: $white;
+$breadcrumbs-item-color-disabled: $medium-gray;
+
+.breadcrumbs {
+  display: block;
+  padding: rhythm(.5) 0;
+  list-style: none;
+
+  ul {
+    display: inline-block;
+  }
+}
+
+.breadcrumbs-item {
+  display: inline-block;
+  color: $breadcrumbs-item-color-current;
+
+  &:not(:last-child)::after {
+    margin: 0 rhythm(1);
+    @include _arrow($color: $white, $direction: right);
+    font-size: .75em;
+  }
+}
+
+.breadcrumbs-home i {
+  margin-top: -4px;
+}
+
+.button-goback {
+  position: relative;
+  display: inline-block;
+  margin-right: rhythm(1.25);
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: - rhythm(.75);
+    top: 0;
+    bottom: 0;
+    display: block;
+    width: 1px;
+    background-color: rgba($white, .25);
+  }
+}

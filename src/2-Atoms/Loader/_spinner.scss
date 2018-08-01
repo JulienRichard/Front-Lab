@@ -1,0 +1,112 @@
+$spinner-color: $white;
+
+/* -- MARKUP
+<div class="spinner">
+  <div class="right-side">
+    <div class="bar"></div>
+  </div>
+  <div class="left-side">
+    <div class="bar"></div>
+  </div>
+</div>
+ */
+
+// -- SPINNER
+.spinner {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+  animation: rotate-all 1s linear infinite;
+}
+
+.right-side,
+.left-side {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+}
+
+.bar {
+  width: 100%;
+  height: 100%;
+  border-radius: 200px 0 0 200px;
+  border: 10px solid $spinner-color;
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: $spinner-color;
+    position: absolute;
+    border-radius: 10px;
+  }
+}
+
+.left-side {
+  left: 0;
+
+  .bar {
+    border-right: 0;
+    transform: rotate(10deg);
+    transform-origin: right center;
+    animation: rotate-left .75s linear infinite alternate;
+
+    &::after {
+      bottom: -10px;
+      right: -5px;
+    }
+  }
+}
+
+.right-side {
+  right: 0;
+
+  .bar {
+    border-radius: 0 200px 200px 0;
+    border-left: 0;
+    transform: rotate(-10deg);
+    transform-origin: left center;
+    animation: rotate-right .75s linear infinite alternate;
+
+    &::after {
+      bottom: -10px;
+      left: -5px;
+    }
+  }
+}
+
+@keyframes rotate-left {
+  to {
+    transform: rotate(30deg);
+  }
+
+  from {
+    transform: rotate(175deg);
+  }
+}
+
+@keyframes rotate-right {
+  from {
+    transform: rotate(-175deg);
+  }
+
+  to {
+    transform: rotate(-30deg);
+  }
+}
+
+@keyframes rotate-all {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}

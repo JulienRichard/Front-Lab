@@ -1,0 +1,23 @@
+@import '../ButtonDefault/styles';
+
+.button-icon {
+  @extend %button;
+  padding-left: 0;
+  padding-right: 0;
+  @include output-rhythm(width, rhythm(2));
+
+  &.is-tiny {
+    @include output-rhythm(height, rhythm(1));
+    @include output-rhythm(width, rhythm(1));
+  }
+
+  &.is-small {
+    @include output-rhythm(height, rhythm(1.5));
+    @include output-rhythm(width, rhythm(1.5));
+  }
+
+  &.is-large {
+    @include output-rhythm(height, rhythm(3));
+    @include output-rhythm(width, rhythm(3));
+  }
+}

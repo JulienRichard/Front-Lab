@@ -1,0 +1,127 @@
+//////////////////////////////////////////////////////////
+//  POST NAVIGATION
+//////////////////////////////////////////////////////////
+.post-nav {
+  position: relative;
+  overflow: auto;
+
+  // Button
+  a {
+    position: relative;
+    display: block;
+    z-index: 1000;
+
+    &.prev {
+      float: left;
+
+      span {
+        left: 0;
+      }
+
+      div {
+        padding-left: rhythm(2);
+      }
+    }
+
+    &.next {
+      float: right;
+
+      span {
+        right: 0;
+      }
+
+      div {
+        padding-right: rhythm(2);
+      }
+    }
+  }
+
+  // Icon
+  a > span {
+    position: relative;
+    z-index: 999;
+    display: block;
+    padding: rhythm(.3) rhythm(.5) rhythm(.4);
+
+    @include breakpoint(medium) {
+      position: absolute;
+      @include center(y);
+    }
+  }
+
+  // Content
+  a > div {
+    display: flex;
+    align-items: center;
+    min-width: 385px;
+    border-radius: $global-radius;
+    box-shadow: $global-box-shadow;
+    overflow: hidden;
+    background-color: rgba($white, .1);
+    transition: transform .3s;
+
+    img {
+      width: rhythm(3);
+      height: rhythm(3);
+
+      @include breakpoint(large) {
+        width: rhythm(5);
+        height: rhythm(5);
+      }
+    }
+
+    span {
+      flex: 1;
+      display: block;
+      padding: rhythm(.5);
+      max-width: rhythm(9);
+    }
+  }
+}
+
+// FIXED POSITION
+// -----------------
+.post-nav.is-fixed {
+  a {
+    display: block;
+    position: fixed;
+    @include center(y);
+    float: none;
+
+    >  div {
+      position: absolute;
+      @include center(y);
+      background-color: rgba($primary-color, .9);
+    }
+  }
+
+  a.prev {
+    left: 0;
+
+    > div {
+      left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      transform: translateY(-50%) translateX(-100%);
+    }
+
+    &:hover > div {
+      transform: translateY(-50%) translateX(0);
+    }
+  }
+
+  a.next {
+    right: 0;
+
+    > div {
+      right: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      transform: translateY(-50%) translateX(100%);
+    }
+
+    &:hover > div {
+      transform: translateY(-50%) translateX(0);
+    }
+  }
+}

@@ -1,0 +1,101 @@
+//////////////////////////////////////////////////////////
+//  MODAL BOX
+//////////////////////////////////////////////////////////
+// -- BASE
+.modal {
+  position: fixed;
+  z-index: 999999999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity .3s ease;
+  background: $global-mask-gradient;
+
+  &--wrapper {
+    display: block;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  &--content {
+    position: relative;
+    display: block;
+    transition: all .3s ease;
+    padding-top: rhythm(2.5);
+    margin-bottom: rhythm(2.5);
+
+    @include breakpoint(medium) {
+      padding-top: rhythm(3);
+      margin-bottom: rhythm(3);
+    }
+
+    @include breakpoint(large) {
+      padding-top: rhythm(4);
+      margin-bottom: rhythm(4);
+    }
+
+    @include breakpoint(xlarge) {
+      padding-top: rhythm(5);
+      margin-bottom: rhythm(5);
+    }
+
+    p {
+      color: $white;
+    }
+  }
+
+  // Centered Layout
+  &.is-centered .modal--content {
+    position: absolute;
+    @include center(xy);
+    display: block;
+    transition: all .3s ease;
+    // max-width: 80%;
+    height: auto;
+    padding: rhythm(1);
+    margin: 0;
+  }
+
+  .button-close {
+    right: rhythm(.5);
+    top: rhythm(.5);
+    font-size: rhythm(2);
+    z-index: 999999999;
+
+    @include breakpoint(medium) {
+      right: rhythm(1);
+      top: rhythm(1);
+      font-size: rhythm(3);
+    }
+
+    @include breakpoint(large) {
+      right: rhythm(1.5);
+      top: rhythm(1.5);
+    }
+  }
+}
+
+// -- TRANSITION
+.modal {
+  &-enter-active {
+    transition: all .3s ease-out;
+  }
+
+  &-leave-active {
+    transition: all .3s ease-in;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+
+  &-enter-to {
+    opacity: 1;
+  }
+
+  &-leave {
+    opacity: 1;
+  }
+}
